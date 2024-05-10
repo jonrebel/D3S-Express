@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>D3S LastMile</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="icon" href="images/FullLogo.jpg" type="image/x-icon" />
+		<script src="https://kit.fontawesome.com/7ddf1a1d47.js" crossorigin="anonymous"></script>
+		<noscript><link rel="stylesheet" href="sass/noscript.scss" /></noscript>
+	</head>
+	<body class="is-preload">
+		<main class="app">
+		<div id="wrapper">
+			<div id="bg"></div>
+			<div id="overlay"></div>
+			<div id="main">
+
+				<!-- Header -->
+					<header id="header">
+						<h1>Ready. Set. Move.</h1>
+						<p id="intro">D3S Stands By That“LastMile”. Handling next day, same day or even pharmaceuticals deliveries with care from Manufacturers, to Small Business, or even to your home front We’re There Every Step Of The Way To The Last Mile</p>
+						<nav>
+							<ul>
+								<li><a href="/atYourService" title="Delivery/Courier Services" class="fa-solid fa-truck-fast"><span class="label">Delivery</span></a></li>
+								<li><a href="/timeToMove" title="Moving Services"class="fa-solid fa-people-carry-box"><span class="label">Moving</span></a></li>
+								<li><a href="/contact" title="About US" class="fa-solid fa-address-card"><span class="label">About Us</span></a></li>
+							</ul>
+						</nav>
+						<div class="about-menu"></div>
+					</header>
+
+				
+
+			</div>
+		</div>
+		<script>
+			window.onload = function() { document.body.classList.remove('is-preload'); }
+			window.ontouchmove = function() { return false; }
+			window.onorientationchange = function() { document.body.scrollTop = 0; }
+		</script>
+		</main>
+	</body>
+</html>

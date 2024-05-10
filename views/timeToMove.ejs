@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="icon" href="images/FullLogo.jpg" type="image/x-icon" />
+    <script src="https://kit.fontawesome.com/7ddf1a1d47.js" crossorigin="anonymous"></script>
+    <title>Time to Move</title>
+</head>
+<body id="atYourService">
+    <section class="back">
+        <a href="/" id="back"><i class="fa-solid fa-arrow-left"></i></a>
+    </section>
+            <div id="bg"></div>
+            <div id="overlay"></div>
+                    <section class="container">
+                        <header>Lets Move !</header>
+                        <h2>Moving Services</h2>
+                        <form action="" class="form" name="timeToMove" data-netlify="true" method="POST" enctype="multipart/form-data">
+                        <div class="input-box">
+                            <label>Full Name</label>
+                            <input type="text" name="name" placeholder="Enter full name" required />
+                        </div>
+                        <div class="input-box">
+                            <label>Email Address</label>
+                            <input type="text" name="email" placeholder="Enter email address"  />
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                            <label>Phone Number</label>
+                            <input type="number" name="phone" placeholder="Enter phone number" required />
+                            </div>
+                            <div class="input-box">
+                                <h3>Reserve A time</h3>
+                            <div class="gender-option">
+                                <input type="datetime-local" id="check-male" name="time"/>
+                            </div>
+                            </div> 
+                        </div>
+                        <div class="column">
+                            <div class="input-box">
+                                <label for="service">Size of Move</label>
+                                    <div class="select-box">
+                                        <select name="service" id="service">
+                                        <option> Under 5 rooms</option>
+                                        <option> 5 - 10 rooms</option>
+                                        <option> 10 - 20 rooms</option>
+                                        <option>Storage Unit</option>
+                                        <option>Basment/Attic</option>
+                                        <option>Garage</option>
+                                        <option class="other">other</option>
+                                        </select>
+                                    </div>
+                            </div>
+                            <div class="input-box">
+                                <label>How many flights of stairs</label>
+                                <input type="number" name="stairs"  min="0" max="10"/>
+                            </div>
+                        </div>
+                        <div class="input-box if-other">
+                            <h3>Describe your move</h3>
+                            <textarea name="if-other" col="40" row="10"></textarea>
+                        </div>
+                        <div class="column">
+                            <div class="gender-box">
+                                <h3>Does anything require disassembly, or special tools ?</h3>
+                                <div class="gender-option">
+                                    <div class="gender">
+                                        <input type="radio" id="yes" name="special"/>
+                                        <label for="yes">Yes</label>
+                                    </div>
+                                    <div class="gender">
+                                        <input type="radio" id="no" name="special" checked />
+                                        <label for="no">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gender-box">
+                                <h3>Upload any photos of your items</h3>
+                                <div class="input-box">
+                                    <div class="gender">
+                                        <input id="file" name="img-file" type="file" multiple="multiple" accept="image/*">
+                                        <label for="file" class="custom-file">
+                                            <i class="fas fa-cloud-upload-alt"></i> Upload Image
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-box if-yes">
+                            <h3>Describe what needs disassembly/ tools needed</h3>
+                            <textarea name="if-yes" col="40" row="10"></textarea>
+                        </div>
+                        <div class="input-box address">
+                            <label>Pick Up Address</label>
+                            <input type="text" name="fromAddress1"placeholder="Enter street address" required />
+                            <input type="text" name="fromAddress2" placeholder="Enter street address line 2"  />
+                            <div class="column">
+                            <div class="select-box">
+                                <select name="countryFrom">
+                                <option hidden>Country</option>
+                                <option>America</option>
+                                <option>Japan</option>
+                                <option>India</option>
+                                <option>Nepal</option>
+                                </select>
+                            </div>
+                            <input type="text" name="fromCity" placeholder="Enter your city" required />
+                            </div>
+                            <div class="column">
+                            <input type="text" name="fromRegion" placeholder="Enter your region" required />
+                            <input type="number" name="fromZip" placeholder="Enter postal code" required />
+                            </div>
+                        </div>
+                        <div class="input-box address">
+                            <label>Drop off Address</label>
+                            <input type="text" name="toAddress1" placeholder="Enter street address" required />
+                            <input type="text" name="toAddress2" placeholder="Enter street address line 2"  />
+                            <div class="column">
+                            <div class="select-box">
+                                <select name="countryTo">
+                                <option hidden>Country</option>
+                                <option>America</option>
+                                <option>Japan</option>
+                                <option>India</option>
+                                <option>Nepal</option>
+                                </select>
+                            </div>
+                            <input type="text" name="toCity" placeholder="Enter your city" required />
+                            </div>
+                            <div class="column">
+                            <input type="text" name="toRegion" placeholder="Enter your region" required />
+                            <input type="number" name="toZip" placeholder="Enter postal code" required />
+                            </div>
+                        </div>
+                        <div class="input-box">
+                            <h3>Anything you like to add ?</h3>
+                            <textarea name="additional details" col="40" row="10"></textarea>
+                        </div>
+                        <button>Submit</button>
+                        </form>
+                    </section>
+                    <script src="Js/main.js"></script>
+                    <script>
+                        let imgInput = document.querySelector('#file'),
+                        form = document.querySelector('.form')
+                        images = []
+
+                        imgInput.addEventListener('change', () => {
+                            const files = imgInput.files
+                            for(let i = 0; i < files.length; i++){
+                                images.push(files[i])
+                            }
+                            console.log(files)
+                        })
+
+                        form.addEventListener('submit', (e) => {
+                            e.preventDefault()
+                            saveImages()
+                        })
+
+                        function saveImages(){
+                            const formData = new FormData(form)
+                            images.forEach((image, index) => {
+                                formData.append(`file[${index}]`, image)
+                            })
+                            fetch("upload",{
+                                method:"POST",
+                                body: formData
+                            })
+                            .then(res => {
+                                if(res.status !== 200) throw Error(res.statusText)
+                                location.reload()
+                            })
+                            .catch(err => {
+                                
+                            })
+                        }
+                    </script>
+               
+</body> 
+</html>
