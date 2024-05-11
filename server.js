@@ -29,27 +29,31 @@ const storage = multer.diskStorage({
 const port = 3000
 
 const app = express()
+module.exports.handler = (event, context, callback) => {
+    const handler = app;
+    return handler(event, context, callback);
+  };
 
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 app.set("view engine", "ejs")
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
+app.get("/", (req,res) =>{
+    res.render('index')
+})
 app.get("/atYourService", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "atYourService.html"));
-});
+    res.render("atYourService"); 
+})
 
 app.get("/timeToMove", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "timeToMove.html"));
-});
+    res.render("timeToMove"); 
+})
 
 app.get("/contact", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "contact.html"));
-});
+    res.render("contact"); 
+})
+
 
 app.post("/upload", (req,res) =>{
     upload(req, res, (err) =>{
