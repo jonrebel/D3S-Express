@@ -36,23 +36,23 @@ module.exports.handler = (event, context, callback) => {
 
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
-app.set("view engine", "ejs")
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join('public')));
 
 app.get("/", (req,res) =>{
-    res.render('index')
-})
+    res.sendFile(path.join(__dirname, 'public', 'index.html'))
+});
+
 app.get("/atYourService", (req, res) => {
-    res.render("atYourService"); 
-})
+    res.sendFile(path.join(__dirname, 'public', 'atYourService.html'))
+});
 
 app.get("/timeToMove", (req, res) => {
-    res.render("timeToMove"); 
-})
+    res.sendFile(path.join(__dirname, 'public', 'timeToMove.html'))
+});
 
 app.get("/contact", (req, res) => {
-    res.render("contact"); 
-})
+    res.sendFile(path.join(__dirname, 'public', 'contact.html'))
+});
 
 
 app.post("/upload", (req,res) =>{
