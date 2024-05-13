@@ -1,20 +1,31 @@
 const express = require("express")
 const multer = require("multer")
+const AWS = require("aws-sdk")
+const multerS3 = require("multer-s3-v2")
 const path = require("path")
-const fs = require("fs")
-const util = require('util')
-const unlink = util.promisify(fs.unlink)
+require("dotenv").config()
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './public/images')
+AWS.config.update({
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_KEY
+})
+const s3Bucket = new AWS.S3()
+
+const {s3} = require("./s3.js")
+const { url } = require("inspector")
+
+const storage = multerS3({
+    s3: s3,
+    bucket: process.env.AWS_BUCKET_NAME,
+    metadata: function(req, file, cb) {
+      cb(null, { originalname: file.originalname });
     },
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      cb(null, uniqueSuffix + path.extname(file.originalname))
+    key: function(req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+        cb(null, uniqueSuffix + path.extname(file.originalname))
     }
   })
-  
+ 
   const upload = multer({ 
     storage: storage,
     limits: {fileSize: 2300000}
@@ -53,6 +64,37 @@ app.get("/timeToMove", (req, res) => {
 app.get("/contact", (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'contact.html'))
 });
+app.get("/video", (req, res) => {
+    const videoPath = path.join(__dirname, "public", "videos", "d3sVid.mp4");
+    res.sendFile(videoPath);
+});
+
+app.get("/uploaded", (req, res) => {
+    const cutoffTime = new Date(Date.now() - 5 * 60 * 1000);
+
+    const params = {
+        Bucket: process.env.AWS_BUCKET_NAME
+    };
+
+    s3Bucket.listObjectsV2(params, (err, data) => {
+        if (err) {
+            console.error('Error listing objects in S3 bucket:', err);
+            return res.status(500).json({ error: 'Error listing objects in S3 bucket' });
+        }
+        const recentObjects = data.Contents.filter(obj => obj.LastModified > cutoffTime);
+
+        if (recentObjects.length === 0) {
+            return res.status(404).json({ error: 'No recent objects found in the S3 bucket' });
+        }
+        
+        const recentObjectURLs = recentObjects.map(obj => `https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/${obj.Key}`);
+        
+
+        res.status(200).json(recentObjectURLs);
+    });
+});
+
+
 
 
 app.post("/upload", (req,res) =>{

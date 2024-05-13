@@ -17,7 +17,7 @@
                     <section class="container">
                         <header>Lets Move !</header>
                         <h2>Moving Services</h2>
-                        <form action="" class="form" name="timeToMove" data-netlify="true" method="POST" enctype="multipart/form-data">
+                        <form action="/upload" class="form" name="timeToMove" data-netlify="true" method="POST" enctype="multipart/form-data">
                         <div class="input-box">
                             <label>Full Name</label>
                             <input type="text" name="name" placeholder="Enter full name" required />
@@ -80,9 +80,10 @@
                                 <h3>Upload any photos of your items</h3>
                                 <div class="input-box">
                                     <div class="gender">
-                                        <input id="file" name="img-file" type="file" multiple="multiple" accept="image/*">
+                                        <input id="file" type="file" multiple="multiple" accept="image/*">
+                                        <input id="urls" type="hidden" name="img-file" >
                                         <label for="file" class="custom-file">
-                                            <i class="fas fa-cloud-upload-alt"></i> Upload Image
+                                            <i id="uploadIcon" class="fas fa-cloud-upload-alt"></i> Upload Image
                                         </label>
                                     </div>
                                 </div>
@@ -144,7 +145,9 @@
                     <script src="Js/main.js"></script>
                     <script>
                         let imgInput = document.querySelector('#file'),
-                        form = document.querySelector('.form')
+                        form = document.querySelector('.form'),
+                        label = document.querySelector('.custom-file'),
+                        urls = document.querySelector('#urls')
                         images = []
 
                         imgInput.addEventListener('change', () => {
@@ -152,13 +155,31 @@
                             for(let i = 0; i < files.length; i++){
                                 images.push(files[i])
                             }
+                            label.innerHTML = Array.from(files).map(file => file.name).join(', ');
+                            saveImages()
                             console.log(files)
                         })
 
                         form.addEventListener('submit', (e) => {
                             e.preventDefault()
-                            saveImages()
+                            getURL()
+                            
                         })
+                        
+                        function getURL() {
+                            fetch('uploaded', {
+                                method: "GET"
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                const imgUrl = data.join(', ')
+                                urls.value = imgUrl
+                                console.log(urls)
+                            })
+                            .catch(err => {
+                                console.error('Error retrieving recent objects:', err);
+                            });
+                        }
 
                         function saveImages(){
                             const formData = new FormData(form)
@@ -171,10 +192,11 @@
                             })
                             .then(res => {
                                 if(res.status !== 200) throw Error(res.statusText)
-                                location.reload()
+                                alert("Images Uploaded");
+                                console.log(imgInput.value)
                             })
                             .catch(err => {
-                                
+                                console.log(err.statusText)
                             })
                         }
                     </script>
