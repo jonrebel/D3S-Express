@@ -157,12 +157,14 @@
                             }
                             label.innerHTML = Array.from(files).map(file => file.name).join(', ');
                             saveImages()
+                            getURL()
                             console.log(files)
                         })
 
                         form.addEventListener('submit', (e) => {
                             e.preventDefault()
-                            getURL()
+                            location.reload()
+                           
                             
                         })
                         
