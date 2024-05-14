@@ -1,5 +1,5 @@
 [build]
-  publish = "public"  # Specify the publish directory as "public"
+  publish = "public"  
   command = "npm run build"
   functions = "functions"
 
