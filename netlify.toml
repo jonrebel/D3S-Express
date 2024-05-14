@@ -1,7 +1,3 @@
-[build]
-  publish = "public"
-  functions = "functions" 
-
 [build.environment]
   AWS_BUCKET_NAME = "d3simages"
   AWS_BUCKET_REGION = "us-east-2"
