@@ -1,10 +1,9 @@
 [build]
   publish = "public"
-  command = "npm run build" 
   functions = "functions" 
 
 [build.environment]
   AWS_BUCKET_NAME = "d3simages"
   AWS_BUCKET_REGION = "us-east-2"
-  AWS_ACCESS_KEY = "AKIAQ3EGPJZ645WYIBDN"
-  AWS_SECRET_KEY = "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"
+  AWS_ACCESS_KEY = "AKIAQ3EGPJZ6YQY3375Z"
+  AWS_SECRET_KEY = "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"
