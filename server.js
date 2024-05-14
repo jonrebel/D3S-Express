@@ -47,25 +47,25 @@ module.exports.handler = (event, context, callback) => {
 
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
-app.use(express.static(path.join('public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get("/", (req,res) =>{
-    res.sendFile(path.join('public', 'index.html'))
+    res.sendFile(path.join(__dirname, 'public', 'index.html'))
 });
 
 app.get("/atYourService", (req, res) => {
-    res.sendFile(path.join('public', 'atYourService.html'))
+    res.sendFile(path.join(__dirname, 'public', 'atYourService.html'))
 });
 
 app.get("/timeToMove", (req, res) => {
-    res.sendFile(path.join('public', 'timeToMove.html'))
+    res.sendFile(path.join(__dirname, 'public', 'timeToMove.html'))
 });
 
 app.get("/contact", (req, res) => {
-    res.sendFile(path.join('public', 'contact.html'))
+    res.sendFile(path.join(__dirname, 'public', 'contact.html'))
 });
 app.get("/video", (req, res) => {
-    const videoPath = path.join("public", "videos", "d3sVid.mp4");
+    const videoPath = path.join(__dirname, "public", "videos", "d3sVid.mp4");
     res.sendFile(videoPath);
 });
 
