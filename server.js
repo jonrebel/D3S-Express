@@ -6,8 +6,8 @@ const path = require("path")
 require("dotenv").config()
 
 AWS.config.update({
-    accessKeyId: process.env.AWS_ACCESS_KEY,
-    secretAccessKey: process.env.AWS_SECRET_KEY
+    accessKeyId: process.env.ACCESS_KEY,
+    secretAccessKey: process.env.SECRET_KEY
 })
 const s3Bucket = new AWS.S3()
 
@@ -16,7 +16,7 @@ const { url } = require("inspector")
 
 const storage = multerS3({
     s3: s3,
-    bucket: process.env.AWS_BUCKET_NAME,
+    bucket: process.env.BUCKET_NAME,
     metadata: function(req, file, cb) {
       cb(null, { originalname: file.originalname });
     },
@@ -73,7 +73,7 @@ app.get("/uploaded", (req, res) => {
     const cutoffTime = new Date(Date.now() - 5 * 60 * 1000);
 
     const params = {
-        Bucket: process.env.AWS_BUCKET_NAME
+        Bucket: process.env.BUCKET_NAME
     };
 
     s3Bucket.listObjectsV2(params, (err, data) => {
@@ -87,7 +87,7 @@ app.get("/uploaded", (req, res) => {
             return res.status(404).json({ error: 'No recent objects found in the S3 bucket' });
         }
         
-        const recentObjectURLs = recentObjects.map(obj => `https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/${obj.Key}`);
+        const recentObjectURLs = recentObjects.map(obj => `https://${process.env.BUCKET_NAME}.s3.amazonaws.com/${obj.Key}`);
         
 
         res.status(200).json(recentObjectURLs);

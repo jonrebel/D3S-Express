@@ -4,7 +4,7 @@
   functions = "functions"
 
 [build.environment]
-  AWS_BUCKET_NAME = "d3simages"
-  AWS_BUCKET_REGION = "us-east-2"
-  AWS_ACCESS_KEY = "AKIAQ3EGPJZ6YQY3375Z"
-  AWS_SECRET_KEY = "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"
+  BUCKET_NAME = "d3simages"
+  BUCKET_REGION = "us-east-2"
+  ACCESS_KEY = "AKIAQ3EGPJZ643VGCE5O"
+  SECRET_KEY = "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"
